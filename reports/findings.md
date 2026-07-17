@@ -171,6 +171,29 @@ driver either. The focused Tier-2 model reaches AUC 0.75 but on a reduced sample
 (n=103, LL84 coverage), and the durable signals are still detection-related
 (sampling frequency; recency of inspection).
 
+### 4g. Tier-3: construction proximity (null)
+Current DOB NOW permits (`rbx6-tga4`, `src/tier3_construction.py`) in the UES
+bounding box: **45,020 permits**. The neighborhood is so densely permitted that
+every building sits a median **~740 permits within 150 m**. Distance to nearest
+construction (p=0.57) and permit density within 150 m (p=0.28) were both null —
+in a saturated area, construction proximity can't discriminate cases from controls.
+
+### 4h. Full predictor inventory (~40 variables tested)
+
+| Domain | Variables tested | Verdict |
+|---|---|---|
+| **Tower testing history** | # samples (12/24 mo), days since last sample, sampling gaps + irregularity, overdue-90d, never-sampled | null — except **sampling *frequency*** (↑ in cases, detection signal) |
+| **Tower inspections** | # inspections, days since last, cycle vs **non-cycle**, ever-inactive | null — except **follow-up (non-cycle)** inspections (weak, not MC-robust) |
+| **Tower violations** | total, ever-cited, # types, **Critical**, **PHH**, **Legionella/water-quality** | **all null** |
+| **Building physical** (PLUTO) | year built/age, # floors, res/total units, **floor area**, **assessed value** | size/value ↑ in cases → **confounder**, not negligence |
+| **Energy / water** (LL84) | site & source EUI, **water use**, water intensity, Energy Star | null / weak (cooling-load proxy did **not** hold) |
+| **Management quality** | **DOB violations**, HPD violations, HPD Class-C | DOB significant alone but **erased by size adjustment**; HPD null |
+| **Spatial / context** | outbreak-ZIP, **tower density (200 m)**, Moran's I, **construction proximity** | ZIP dominates; within-zone density & clustering **null** |
+
+**Two things survive everything:** *location* (being in the sampled zone) and
+*detection intensity* (how often a tower is looked at). Every negligence-flavored
+variable is null or dissolves under size adjustment.
+
 ## 5. Interpretation
 
 1. **The dominant "predictor" of a positive tower is geography, not maintenance
@@ -191,6 +214,41 @@ driver either. The focused Tier-2 model reaches AUC 0.75 but on a reduced sample
 a building's cooling-tower history and outbreak positivity, but it is weak, points
 opposite to a negligence hypothesis, and is dwarfed by location. The data do not
 support singling out poorly-maintained towers as the driver of this cluster.
+
+### 5b. Why positivity isn't "random" — the variables open data can't see
+
+"Not explained by our variables" is **not** the same as "random." Three real,
+non-random drivers *are* in the data: **location**, **building scale**, and
+**detection intensity**. What's genuinely flat is the *negligence/compliance* axis.
+
+The reason the within-zone pattern still looks like scatter is that **whether a
+given tower blooms is decided by tower-level operational conditions that no public
+dataset records.** The registration data lists the *dates* a tower was sampled —
+never the *results*. The deciding factors live one layer below open data:
+
+- **Water temperature** in the basin (the dominant growth factor)
+- **Biocide/treatment dosing** and any lapse in it
+- **Stagnation** — short idle periods, dead legs, a pump cycling off
+- **Biofilm / scale**, and **drift-eliminator** condition (how much mist escapes)
+- **Nutrient load** and makeup-water quality
+- **Exact timing** of the last real cleaning relative to the July heat
+- **Tower make / model / design** — some aerosolize far more than others
+
+Two buildings identical on every public field can differ entirely on these — and
+*that* is what separates a positive tower from a negative one. Legionella clusters
+are characteristically idiosyncratic per-tower plus weather plus chance; this kind
+of within-area scatter is exactly what the epidemiology predicts.
+
+**Power:** with 74 cases we can only detect *large* effects; a real OR≈1.3 would
+need several hundred cases. "Null" means "no large effect visible in building-level
+open data," not "no effect exists." We are also using **building-level administrative
+records** to chase a **tower-level microbiological** event — an inherent ceiling.
+
+**What would actually explain which towers bloomed** (and what DOH uses internally,
+unpublished): per-tower *Legionella* culture counts over time; water-treatment and
+maintenance logs; tower make/model/age; and — the gold standard — **genomic matching**
+of each tower's isolate to patient isolates. A regression on open data structurally
+cannot name the source; it can only rule hypotheses in or out, which is what we did.
 
 ## 6. Limitations
 

@@ -1,0 +1,7 @@
+Manhattan major permits since 2024-07: 45020; within UES bbox: 45020
+
+zone buildings=183 cases=74
+
+--- construction proximity: case vs control ---
+  dist_construction_m    case_med=    14.0  control_med=     7.9  p=0.5742
+  n_construction_150m    case_med=   743.5  control_med=   680.0  p=0.2780
