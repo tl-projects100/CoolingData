@@ -1,0 +1,30 @@
+======================================================================
+TIER-1 ADDITIONAL PREDICTORS — outbreak zone
+  buildings=183  cases=74
+======================================================================
+
+--- UNIVARIATE: case vs control (median / rate), zone ---
+feature                     case   control     test        p
+tower_density_200m         10.00     10.00      MWU   0.5986
+n_phh_viol                  2.50      2.00      MWU   0.5936
+n_crit_viol                 9.00      9.00      MWU   0.2384
+n_wq_viol                   7.00      7.00      MWU   0.3203
+n_noncycle                  0.00      0.00      MWU   0.0149
+sample_gap_cv               0.82      0.68      MWU   0.1469
+ever_wq_viol                0.89      0.88   Fisher   1.0000
+ever_noncycle               0.35      0.20   Fisher   0.0271
+ever_inactive               0.04      0.06   Fisher   0.7422
+
+land use (positivity): non-residential=40% (n=183)
+
+--- FOCUSED model (n=183, cases=74, OR per 1 SD) ---
+                                   OR  CI_low  CI_high      p
+const                           0.661   0.486    0.899  0.008
+n_towers                        0.902   0.597    1.362  0.623
+n_samples_24mo                  1.583   1.086    2.307  0.017
+days_since_last_inspection_imp  0.790   0.569    1.096  0.158
+tower_density_200m              0.905   0.659    1.243  0.539
+n_wq_viol                       1.678   0.895    3.145  0.106
+n_phh_viol                      0.746   0.405    1.374  0.347
+
+  McFadden R2=0.051  AUC=0.663  LLR p=4.96e-02

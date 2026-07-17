@@ -110,6 +110,35 @@ trends positive (OR 1.49, p=0.091). Model AUC 0.71, R² 0.072. So the most robus
 correlate of positivity is *how much a tower is sampled*, plausibly detection
 intensity, with building size/value as a secondary axis.
 
+### 4e. Tier-1 additional predictors
+Nine further hypotheses were tested (`src/tier1.py`,
+`reports/odds_ratios_tier1.csv`): severity-split violations (PHH / Critical),
+Legionella / water-quality–specific violations, follow-up ("non-cycle")
+inspections, local cooling-tower density within 200 m, sampling-cadence
+regularity, and ever-inactive status.
+
+| New predictor | Case vs control | p |
+|---|---|---|
+| Ever had a **follow-up ("non-cycle") inspection** | 35% vs 20% | **0.027** |
+| # non-cycle inspections | higher in cases | **0.015** |
+| Water-quality / Legionella violations (focused model) | OR 1.68 / SD | 0.106 |
+| Local tower density (200 m) | 10 vs 10 | 0.60 (null) |
+| PHH / Critical violation counts | — | 0.59 / 0.24 (null) |
+| Sampling-cadence irregularity (gap CV) | 0.82 vs 0.68 | 0.15 (null) |
+| Ever-inactive tower | 4% vs 6% | 0.74 (null) |
+
+The one nominal signal is **follow-up inspections** — complaint- or
+problem-triggered visits, i.e. buildings previously flagged. In the focused
+6-predictor model (n=183) **sampling frequency remains the most robust
+correlate** (OR 1.58, p=0.017); water-quality violations trend positive but are
+not significant; AUC 0.66.
+
+> **Multiple-comparison caveat:** ~9 features were tested, so ~0.5 false
+> positives are expected at α=0.05. The non-cycle signal (p≈0.02) does **not**
+> survive a Bonferroni correction (~0.006) and should be read as a lead to
+> investigate, not a finding. Tower density being null is itself informative:
+> positive towers are **not** concentrated where towers are densest.
+
 ## 5. Interpretation
 
 1. **The dominant "predictor" of a positive tower is geography, not maintenance
