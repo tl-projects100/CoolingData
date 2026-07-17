@@ -91,6 +91,25 @@ model residuals **I ≈ 0, p = 0.38**. **No fine-scale spatial clustering** of
 positive towers within the zone — positives and negatives are intermixed
 (`reports/figures/map_towers.png`).
 
+### 4d. PLUTO sensitivity (building attributes)
+Joining PLUTO by BBL (173/183 zone buildings matched), **case buildings are
+physically bigger and higher-valued**, not older:
+
+| Attribute | Case (median) | Control (median) | p |
+|---|---|---|---|
+| Assessed total value | \$21.2M | \$14.7M | **0.004** |
+| Building floor area | 144,280 | 106,034 | **0.025** |
+| # Floors | 18 | 16 | **0.046** |
+| Building age (yrs) | 62 | 63 | 0.48 |
+
+Re-running the logistic model with PLUTO covariates added
+(`reports/odds_ratios_pluto.csv`): the **registration-age signal attenuates to
+null** (OR 1.20, p=0.38) — it was partly a proxy for building size/value — while
+**sampling frequency stays significant** (OR 1.52, p=0.023) and assessed value
+trends positive (OR 1.49, p=0.091). Model AUC 0.71, R² 0.072. So the most robust
+correlate of positivity is *how much a tower is sampled*, plausibly detection
+intensity, with building size/value as a secondary axis.
+
 ## 5. Interpretation
 
 1. **The dominant "predictor" of a positive tower is geography, not maintenance
@@ -129,8 +148,20 @@ python3 src/build_case_list.py   # 76-building case roster -> data/raw/
 python3 src/match_and_label.py   # address match/audit -> data/processed/
 python3 src/build_features.py    # labeled feature table -> data/processed/
 python3 src/analyze.py           # EDA + regression + spatial -> reports/
+python3 src/enrich_pluto.py      # PLUTO join + sensitivity model -> reports/
+python3 reports/build_map.py     # self-contained artifact map (NYC grid basemap)
+python3 reports/build_leaflet.py # standalone map w/ OpenStreetMap tiles (open locally)
 ```
-Full console log: `reports/stats.txt`. Odds ratios: `reports/odds_ratios.csv`.
+Console logs: `reports/stats.txt`, `reports/stats_pluto.txt`. Odds ratios:
+`reports/odds_ratios.csv`, `reports/odds_ratios_pluto.csv`.
+
+## 8. Interactive maps
+
+- **`reports/map.html`** — self-contained interactive dot-map over the authentic NYC
+  street grid (basemap from NYC Open Data `inkn-q76z`); hover history, filters, table
+  view; works inside a sandboxed artifact (no external requests).
+- **`reports/map_leaflet.html`** — standalone map on a live OpenStreetMap tile
+  basemap; open in a browser locally (loads external tiles, so not for the sandbox).
 
 *When the DOH list grows further, drop the new addresses into
 `src/build_case_list.py` and re-run — the pipeline is a drop-in re-run.*

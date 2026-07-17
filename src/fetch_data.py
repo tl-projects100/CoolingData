@@ -29,3 +29,14 @@ if __name__ == "__main__":
         rows = fetch(dsid)
         (RAW / f"{name}.json").write_text(json.dumps(rows))
         print(f"{name} ({dsid}): {len(rows)} rows -> data/raw/{name}.json", flush=True)
+
+    # UES street-grid basemap (NYC Street Centerline / CSCL) for the map artifact
+    box = "40.7895,-73.9665,40.7690,-73.9420"   # N,W,S,E covering the outbreak ZIPs
+    q = urllib.parse.urlencode({"$where": f"within_box(the_geom,{box})", "$limit": 8000,
+                                "$select": "the_geom,street_name,stname_label"})
+    url = f"https://data.cityofnewyork.us/resource/inkn-q76z.geojson?{q}"
+    req = urllib.request.Request(url, headers={"User-Agent": "cooling-data-analysis"})
+    with urllib.request.urlopen(req, timeout=120) as r:
+        gj = r.read()
+    (RAW / "ues_streets.geojson").write_bytes(gj)
+    print(f"ues_streets (inkn-q76z): -> data/raw/ues_streets.geojson", flush=True)
