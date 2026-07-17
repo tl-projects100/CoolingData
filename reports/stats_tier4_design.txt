@@ -1,0 +1,9 @@
+NYS registry rows (New York county): 0
+zone buildings matched to NYS registry: 0/183
+
+--- tower-hardware attributes: case vs control (median) ---
+  tower_max_cap      too few matches
+  tower_sum_cap      too few matches
+  n_manufacturers    too few matches
+
+--- top tower manufacturers (positives vs controls) ---

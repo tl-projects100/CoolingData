@@ -194,6 +194,30 @@ in a saturated area, construction proximity can't discriminate cases from contro
 *detection intensity* (how often a tower is looked at). Every negligence-flavored
 variable is null or dissolves under size adjustment.
 
+### 4i. Tier-4 advanced designs & angles
+
+Beyond more predictors, we ran different *questions and study designs*
+(`src/tier4_*.py`):
+
+| Angle | Method | Result |
+|---|---|---|
+| **#7 Matched case-control** | 63 case↔control pairs matched on size/value/age; paired tests on compliance | **Confirms negligence-null**: violations still null (p=0.85); only **more sampling** (p=0.026) and **more recent inspection** (p=0.009) survive — detection signals, not maintenance |
+| **#3 Directional gradient** | trend-surface logistic on projected coords | **New (weak) signal**: positivity rises to the **north** (N–S OR 2.0/km, p=0.043; bearing ~336°; joint p=0.068) — a gradient Moran's I is blind to |
+| **#8 "Lottery" model** | binomial P(pos)=1−(1−p)^towers vs constant | Lottery **rejected** (LR p=0.44); tower *count* doesn't drive positivity → per-tower conditions do |
+| **#1/#2 Owner/contractor network** | shared PLUTO owner + DOB permit contractor across the 76 | **Null** — buildings are single-asset LLCs; shared contractors (scaffolding/mechanical) appear equally on controls. *Water-treatment vendor — the relevant one — isn't in open data* |
+| **#5 Repeat-offenders / prior clusters** | prior Legionella violations; past NYC cluster geographies | **Null / no overlap** — Legionella-specific violations flat (§4e); prior NYC clusters were in the Bronx/Upper Manhattan (different geography) |
+| **#6 Weather trigger** | July-2026 timeline vs conditions | **Consistent** with an environmental bloom — the cluster coincided with a heat wave that officials linked to Legionella growth (qualitative) |
+| **#9 Real outcome / tower hardware** | NYS registry `gd58-9fej`; NYC results fields | **Unavailable** — datasets are dates-only (no results); NYS registry is a 74-row upstate sample with no NYC coverage, so manufacturer/model/capacity can't be joined |
+| **#4 Aerosol plume model** | Gaussian plume vs case locations | **Not feasible** on open data — requires patient coordinates (private); the #3 gradient is the available substitute |
+
+**Takeaways:** (1) the negligence-null now survives a *matched* design — the
+cleanest test — so it is not a size artifact; (2) the only genuinely new positive
+result is a **weak northward gradient** in positivity, worth noting but borderline
+and unadjusted for multiple looks; (3) every mechanistic link we *could* build
+from open data (ownership, contractors, tower hardware, prior history) is null or
+unavailable, reinforcing that the deciding variables are tower-level and
+unpublished (§5b).
+
 ## 5. Interpretation
 
 1. **The dominant "predictor" of a positive tower is geography, not maintenance

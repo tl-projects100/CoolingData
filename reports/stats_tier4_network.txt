@@ -1,0 +1,27 @@
+==================================================================
+#1/#2  SHARED OWNER / CONTRACTOR NETWORK — outbreak zone
+  buildings=183 cases=74
+==================================================================
+
+PLUTO owner name: shares an entity with another POSITIVE building
+   positives: 16%   controls: 20%
+   entities on >=2 positive buildings:
+     UNAVAILABLE                                positives=10 controls=18
+     NYC DEPARTMENT OF PARKS AND RECREATION     positives=2 controls=2
+
+DOB permit contractor: shares an entity with another POSITIVE building
+   positives: 95%   controls: 78%
+   entities on >=2 positive buildings:
+     ANDAMIO SCAFFOLDING                        positives=11 controls=13
+     EVEREST SCAFFOLDING                        positives=9 controls=6
+     ACCURATE MECHANICAL                        positives=8 controls=5
+     KINGS NY                                   positives=8 controls=5
+     SPRING SCAFFOLDING                         positives=7 controls=13
+     CRYSTAL COMFORT                            positives=7 controls=9
+     DONATO PLUMBING                            positives=7 controls=5
+     ARSENAL SCAFFOLD                           positives=6 controls=5
+     PLATINUM SERVICES NY                       positives=6 controls=8
+     CEPRINE CONSTRUCTION                       positives=6 controls=4
+
+Note: NYC buildings are typically each held by a distinct single-asset LLC,
+so PLUTO owner rarely repeats; contractors/managing agents are the real test.

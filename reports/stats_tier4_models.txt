@@ -1,0 +1,31 @@
+==================================================================
+#7  MATCHED CASE-CONTROL — remove building-size confounding
+==================================================================
+matched pairs: 63 (each case -> nearest unused control on size/value/age)
+
+compliance var             case mean ctrl mean  Wilcoxon p
+n_samples_24mo                  4.17      3.29      0.0263
+n_violations                   19.95     19.37      0.8490
+days_since_last_inspection    446.15    590.43      0.0088
+overdue_90d                     0.11      0.19      0.2253
+reg_age_yrs                    10.40     10.27      0.0159
+  -> With size matched, does any maintenance metric still separate case vs control?
+
+==================================================================
+#8  LOTTERY MODEL — is positivity just proportional to # towers?
+==================================================================
+  per-tower prob (MLE, lottery): p=0.369
+  logLik  lottery=-123.18   constant(ignore towers)=-123.48
+  LR test lottery vs constant: chi2=0.60  p=0.437
+  logistic case~log(#towers): OR=2.164  p=0.173
+  -> If tower count barely moves positivity, a pure 'more towers=more chances'
+     lottery is rejected: the action is per-tower conditions, not tower count.
+
+==================================================================
+#3  DIRECTIONAL GRADIENT — trend-surface logistic (non-circular)
+==================================================================
+  case ~ x_km (E-W) + y_km (N-S):
+    x_km: OR/km=0.734  p=0.386
+    y_km: OR/km=2.035  p=0.043
+  gradient magnitude=0.775 /km, bearing=336deg (0=N,90=E); joint LLR p=0.068
+  -> Significant x/y = positivity rises in a direction (a gradient Moran's I misses).
