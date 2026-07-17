@@ -139,6 +139,38 @@ not significant; AUC 0.66.
 > investigate, not a finding. Tower density being null is itself informative:
 > positive towers are **not** concentrated where towers are densest.
 
+### 4f. Tier-2 additional data (LL84 energy/water · DOB · HPD)
+Pulled three more open datasets and joined by BBL to the zone (`src/tier2.py`):
+LL84 benchmarking (`5zyy-y8am`; energy/water use as a cooling-load proxy), DOB
+violations (`3h2n-5cm9`), and HPD housing violations (`wvxf-dwi5`).
+
+| New predictor | Case vs control (median) | p |
+|---|---|---|
+| **# DOB violations (all-time)** | 53 vs 35 | **0.0004** |
+| Site energy-use intensity (EUI) | 82.5 vs 72.6 | 0.094 |
+| Water use (kgal) — *tower makeup-water proxy* | 4,670 vs 4,214 | 0.33 (null) |
+| Water-use intensity (kgal/ft²) | — | 0.85 (null) |
+| Energy Star score | 44 vs 40 | 0.62 (null) |
+| # HPD violations / Class C (hazardous) | 3 vs 3 / 0 vs 0 | 0.68 / 0.41 (null) |
+
+**DOB violations are the strongest raw signal in the whole study — and a textbook
+confounder.** They vanish once building size is controlled:
+
+| Model | DOB odds ratio / SD | p |
+|---|---|---|
+| DOB alone | 1.60 (1.06–2.43) | 0.026 |
+| DOB + assessed value + # towers | 1.22 (0.74–2.01) | 0.43 |
+| + building age | 1.18 (0.78–1.79) | 0.44 |
+
+Bigger, older buildings simply accumulate more DOB violations — so the "positive
+buildings have more violations" pattern is a **size artifact, not negligence**,
+the same confound seen throughout (§4d). Notably, the **cooling-load proxies
+themselves — water use and energy intensity — did not hold up** (water null;
+EUI attenuates after adjustment), so heavier air-conditioning use is not a clear
+driver either. The focused Tier-2 model reaches AUC 0.75 but on a reduced sample
+(n=103, LL84 coverage), and the durable signals are still detection-related
+(sampling frequency; recency of inspection).
+
 ## 5. Interpretation
 
 1. **The dominant "predictor" of a positive tower is geography, not maintenance

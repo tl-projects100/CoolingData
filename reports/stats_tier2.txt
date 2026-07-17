@@ -1,0 +1,30 @@
+LL84: 372 rows -> 154/181 BBLs with a benchmarking record
+DOB: 2753 lot-groups; matched BBLs 179
+HPD: 4167 class-groups; matched BBLs 113
+
+==================================================================
+TIER-2 PREDICTORS — outbreak zone (LL84 + DOB + HPD)
+  buildings=183  cases=74
+==================================================================
+
+--- UNIVARIATE: case vs control (median), zone ---
+feature                     case     control      n        p
+site_eui                   82.50       72.60    150   0.0944
+water_use_kgal           4669.70     4214.15    106   0.3342
+water_intensity             0.03        0.03    106   0.8508
+energy_star                44.00       40.50    122   0.6206
+n_dob_viol                 53.00       35.00    183   0.0004
+n_hpd_viol                  3.00        3.00    183   0.6841
+n_hpd_classC                0.00        0.00    183   0.4067
+
+--- FOCUSED model (n=103, cases=45, OR per 1 SD) ---
+                                   OR  CI_low  CI_high      p
+const                           0.806   0.524    1.242  0.329
+n_towers                        1.413   0.644    3.102  0.389
+n_samples_24mo                  1.605   0.924    2.788  0.093
+days_since_last_inspection_imp  0.635   0.404    1.001  0.050
+site_eui                        1.289   0.821    2.022  0.270
+log_water                       0.964   0.591    1.573  0.884
+n_dob_viol                      1.355   0.605    3.035  0.461
+
+  McFadden R2=0.106  AUC=0.752  LLR p=2.05e-02
