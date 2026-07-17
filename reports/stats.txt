@@ -1,0 +1,70 @@
+======================================================================
+PRIMARY SAMPLE  = registered cooling-tower buildings in ZIPs 10028/10075/10128
+  buildings=183  cases=74  controls=109  positivity=40.4%
+======================================================================
+
+--- missingness (zone) ---
+  days_since_last_sample: 12.6% missing
+  median_gap_days: 21.9% missing
+  max_gap_days: 21.9% missing
+  days_since_last_inspection: 2.7% missing
+
+--- UNIVARIATE: case vs control (zone) ---
+feature                     case_med  ctrl_med      test        p
+n_towers                         1.0       1.0       MWU   0.1617
+n_active_towers                  1.0       1.0       MWU   0.1828
+reg_age_yrs                     10.8      10.8       MWU   0.0025
+n_samples                        4.0       3.0       MWU   0.0100
+days_since_last_sample          16.0      20.0       MWU   0.2725
+n_samples_24mo                   4.0       3.0       MWU   0.0100
+median_gap_days                 41.5      54.5       MWU   0.0246
+max_gap_days                   151.5     156.0       MWU   0.4848
+n_inspections                   24.0      22.0       MWU   0.2305
+n_violations                    17.0      16.0       MWU   0.3709
+n_citations                     12.0      11.0       MWU   0.3033
+days_since_last_inspection     428.0     490.5       MWU   0.1151
+never_sampled                   0.09      0.15    Fisher   0.3668
+overdue_90d                     0.09      0.18    Fisher   0.1363
+ever_violation                  0.93      0.94    Fisher   1.0000
+
+--- multivariable model sample: 183 buildings, 74 cases ---
+
+--- VIF (multicollinearity; >5 = concern) ---
+n_towers                          1.58
+reg_age_yrs                       1.16
+days_since_last_sample_imp        1.63
+n_samples_24mo                    2.20
+n_violations                      1.36
+days_since_last_inspection_imp    1.04
+
+======================================================================
+MULTIVARIABLE LOGISTIC REGRESSION  (standardized: OR per 1 SD; binary: OR)
+======================================================================
+                                   OR  CI_low  CI_high      p
+const                           0.641   0.467    0.880  0.006
+n_towers                        0.998   0.649    1.535  0.994
+reg_age_yrs                     1.571   0.994    2.485  0.053
+days_since_last_sample_imp      0.963   0.634    1.461  0.859
+n_samples_24mo                  1.486   0.941    2.346  0.089
+n_violations                    1.132   0.784    1.633  0.510
+days_since_last_inspection_imp  0.806   0.580    1.121  0.200
+
+  pseudo-R2 (McFadden)=0.065  n=183  LLR p=1.34e-02
+  in-sample AUC=0.701
+
+--- L1-penalized logistic (LASSO, CV) : robustness / selection ---
+  chosen C=1.624   CV-AUC=0.595
+  nonzero LASSO odds ratios:
+    reg_age_yrs                        OR=1.525
+    days_since_last_sample_imp         OR=0.974
+    n_samples_24mo                     OR=1.464
+    n_violations                       OR=1.115
+    days_since_last_inspection_imp     OR=0.820
+  shrunk to zero: ['n_towers']
+
+======================================================================
+SPATIAL AUTOCORRELATION  (Moran's I, binary weights, 400 m cutoff)
+======================================================================
+  Moran's I (case indicator) = 0.0004   perm p = 0.148   links=5622
+  Moran's I (model residuals) = -0.0000   perm p = 0.376
+  (I>0 with small p = spatial clustering; residual clustering = model misses geography)
