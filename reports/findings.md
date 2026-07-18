@@ -218,6 +218,29 @@ from open data (ownership, contractors, tower hardware, prior history) is null o
 unavailable, reinforcing that the deciding variables are tower-level and
 unpublished (§5b).
 
+### 4j. Tier-5 further angles (all public-data)
+More designs on public data (`src/tier5.py` + a 311 check):
+
+| Angle | Result |
+|---|---|
+| **#1 Local hotspot** (Getis-Ord Gi* + nearest-neighbour) | **No local cluster** — max Gi* z=2.4 but permutation p=0.54; NN clustering p=0.55. Positives are diffuse even locally. |
+| **#6 Relative building height** | **New signal** — positives stand **+1.8 floors above** neighbours (200 m) vs −0.9 for controls (p=0.013): a plausible aerosol-dispersal advantage. |
+| **#8 Distance to Central Park** | **New signal** — positives are **closer to the park's 5th-Ave edge** (536 m vs 724 m, p=0.034). |
+| **#2 Is "samples more" a prior-problem marker?** | **No** — sampling frequency correlates *negatively* with violations (ρ=−0.19, p=0.008) and stays significant after adjustment → it reflects **diligence/detection**, not a hidden prior-fail history. |
+| **#3 Initial-31 vs added-45** | Initial set sits slightly north, not significantly (p=0.28) — inconclusive epicenter. |
+| **#4 Remediation speed** | Nothing predicts "completed" vs "ordered-by-date" (all p>0.17). |
+| **#7 311 complaints** (air/water + a "Cooling Tower" type) | **Null** (p=0.27). |
+| **#5 Retrospective power** | With 74 cases, ~80% power only for **OR ≥ ~1.5/SD**; smaller real effects are undetectable. |
+
+**Two new leads** — *taller-than-neighbours* and *closer-to-park* — form a coherent
+**dispersal-geography** thread (positive towers are more exposed / near the open
+western edge), complementing the weak northward gradient (§4i). All three are
+exploratory and **not multiple-comparison-robust** (Tier-5 tested ~8 things);
+treat as hypotheses for an epidemiologist. Crucially, **#5 reframes every null**:
+we could only ever detect *large* effects, so "null" means "no OR≳1.5 effect,"
+not "no effect." And the durable *detection* signal is now shown to be **diligence,
+not negligence** (#2) — the buildings that sample more have *fewer* violations.
+
 ## 5. Interpretation
 
 1. **The dominant "predictor" of a positive tower is geography, not maintenance
@@ -278,6 +301,10 @@ cannot name the source; it can only rule hypotheses in or out, which is what we 
 
 - Outcome = **tower positivity**, not human infection (patient addresses private).
 - Small case count (74 in-zone) → wide CIs; borderline p-values are fragile.
+- **Underpowered for modest effects:** ~80% power only for OR ≳ 1.5/SD (§4j #5),
+  so most nulls mean "no *large* effect," not "no effect at all."
+- The new dispersal-geography leads (relative height, park proximity, northward
+  gradient) are exploratory and not multiple-comparison-robust — hypotheses, not findings.
 - **Surveillance/detection bias:** positives were actively *sought* in these ZIPs.
 - ~6-month posting lag on inspections; owner-reported sample dates may be imperfect.
 - Registration age is a proxy (date first registered ≈ 2015 floor), not true tower age.

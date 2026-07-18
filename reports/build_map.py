@@ -180,9 +180,11 @@ td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:righ
   tower(s); the outcome is tower positivity during the July 2026 investigation, not
   human illness (patient addresses are private). Within this zone, compliance history
   barely predicts positivity (AUC 0.70) and Moran's I &#8776; 0 — no fine-scale spatial
-  clustering. Basemap: NYC Street Centerline (<span style="font-family:var(--mono)">inkn-q76z</span>).
-  Points: registrations (<span style="font-family:var(--mono)">y4fw-iqfr</span>) +
-  inspections (<span style="font-family:var(--mono)">f9wb-g8mb</span>) + NYC DOH list.</p>
+  clustering. Dots are placed at the building's <b>PLUTO lot-centroid</b> (a point inside
+  the lot), not the street-front address geocode. Basemap: NYC Street Centerline
+  (<span style="font-family:var(--mono)">inkn-q76z</span>). Points: registrations
+  (<span style="font-family:var(--mono)">y4fw-iqfr</span>) + inspections
+  (<span style="font-family:var(--mono)">f9wb-g8mb</span>) + NYC DOH list.</p>
 </div></div>
 
 <script>
