@@ -41,6 +41,13 @@ html = markdown.markdown(md, extensions=["tables","fenced_code","sane_lists"])
     "Technical Findings — UES Legionnaires × Cooling Towers",
     f'<style>{FCSS}</style><div class="wrap"><a class="back" href="./">← back to overview</a>{html}</div>'))
 
+# testing-priority methodology (public-safe, no building names)
+mmd = markdown.markdown((REPORTS/"priority_methodology.md").read_text(),
+                        extensions=["tables","fenced_code","sane_lists"])
+(DOCS/"methodology.html").write_text(full_doc(
+    "Testing-Priority Score — Methodology",
+    f'<style>{FCSS}</style><div class="wrap"><a class="back" href="./">← back to overview</a>{mmd}</div>'))
+
 # --- copy PDFs + data ---
 shutil.copy(REPORTS/"UES_Legionnaires_explainer.pdf", DOCS/"explainer.pdf")
 shutil.copy(REPORTS/"UES_Legionnaires_technical_findings.pdf", DOCS/"technical-findings.pdf")
@@ -120,6 +127,11 @@ a{{color:var(--case)}}
   <div class="row">
     <a class="btn" href="explainer.pdf">⬇︎ Explainer (PDF)</a>
     <a class="btn" href="technical-findings.pdf">⬇︎ Technical findings (PDF)</a>
+  </div>
+
+  <h3 class="sec">Methods</h3>
+  <div class="row">
+    <a class="btn" href="methodology.html">🧭 Testing-priority score — methodology</a>
   </div>
 
   <h3 class="sec">Data &amp; code</h3>

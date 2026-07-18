@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Testing-Priority Score — Methodology</title>
+</head>
+<body>
+<style>
+:root{--bg:#f4f5f3;--surface:#fff;--ink:#17181a;--ink2:#4a4f55;--line:#e3e5e4;--accent:#b4531f;--code:#f1f0ec}
+@media(prefers-color-scheme:dark){:root{--bg:#101214;--surface:#181b1e;--ink:#f0f2f3;--ink2:#bfc5cb;--line:#2b3034;--accent:#f0793f;--code:#202427}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);
+ font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;line-height:1.6}
+.wrap{max-width:820px;margin:0 auto;padding:32px 20px 80px}
+h1{font-family:Georgia,serif;font-size:2rem;line-height:1.1;margin:.2em 0}
+h2{font-family:Georgia,serif;font-size:1.4rem;margin:1.6em 0 .4em;padding-top:.5em;border-top:2px solid var(--line)}
+h3{font-size:1.05rem;color:var(--accent);margin:1.2em 0 .3em}
+p,li{font-size:.98rem}a{color:var(--accent)}
+code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;font-size:.8rem}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:.85rem;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:left}th{background:var(--code)}
+blockquote{margin:14px 0;padding:10px 16px;background:var(--code);border-left:3px solid var(--accent);border-radius:0 8px 8px 0}
+.back{display:inline-block;margin-bottom:18px;font-size:.85rem}
+</style><div class="wrap"><a class="back" href="./">← back to overview</a><h1>Testing-Priority Score — Methodology</h1>
+<p><em>A transparent heuristic for prioritizing </em><em>which registered cooling towers to
+test or inspect next</em><em>. It is </em><em>not</em><em> a prediction that any building has
+</em>Legionella<em>.</em></p>
+<hr />
+<h2>What this is — and what it is not</h2>
+<p><strong>Is:</strong> a way to rank registered cooling-tower buildings by public <em>compliance and
+monitoring</em> signals, so limited inspection/testing effort can focus on the biggest
+<strong>blind spots</strong> first.</p>
+<p><strong>Is not:</strong> a risk model for <em>Legionella</em> presence. The factors that actually drive
+growth in a cooling tower — water temperature, biocide dosing and lapses,
+stagnation, biofilm, tower make/model — are <strong>not in any public dataset</strong>, and the
+building-level model these signals come from is weak (area-under-curve ≈ 0.70). A
+high score means "under-monitored, with a history worth a look," not "dangerous."</p>
+<h2>Inputs (all public — NYC Open Data)</h2>
+<ul>
+<li><strong>Cooling Tower Registrations</strong> (<code>y4fw-iqfr</code>) — tower counts and Legionella
+  water-sample dates.</li>
+<li><strong>Cooling Tower Inspection Results</strong> (<code>f9wb-g8mb</code>) — inspection dates and
+  violations, including water-quality / Legionella-specific violations.</li>
+</ul>
+<p>All signals are computed <strong>as-of before the investigation window</strong> (capped
+2026-07-01) so the outbreak's own sampling can't leak into the score.</p>
+<h2>The score</h2>
+<p>Each building is scored on four factors. Every factor is converted to a <strong>0–1
+percentile</strong> within the population being ranked (so the score is relative, not an
+absolute risk), then combined as a weighted sum:</p>
+<table>
+<thead>
+<tr>
+<th>Factor</th>
+<th>What it captures</th>
+<th>Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Overdue sampling</strong> — days since last Legionella test (never-sampled = worst)</td>
+<td>monitoring blind spot</td>
+<td><strong>0.35</strong></td>
+</tr>
+<tr>
+<td><strong>Water-quality / Legionella violations</strong> (all-time count)</td>
+<td>documented past water-management problems</td>
+<td><strong>0.30</strong></td>
+</tr>
+<tr>
+<td><strong>Inspection gap</strong> — days since last inspection (never = worst)</td>
+<td>oversight blind spot</td>
+<td><strong>0.20</strong></td>
+</tr>
+<tr>
+<td><strong>Tower count</strong></td>
+<td>consequence/exposure if it <em>did</em> bloom (bigger plume)</td>
+<td><strong>0.15</strong></td>
+</tr>
+</tbody>
+</table>
+<p><code>priority = 0.35·overdue + 0.30·violations + 0.20·inspection_gap + 0.15·towers</code></p>
+<p>Buildings are ranked high→low. Missing "days since" values (a building never
+sampled or never inspected) are treated as the worst case — those are exactly the
+blind spots the score is meant to surface. Weights are a deliberate, editable
+choice, not a fitted result; anyone can re-weight to match their priorities.</p>
+<h2>How to read a ranking</h2>
+<ul>
+<li>A top rank usually means <strong>overdue or never-tested</strong>, <em>and</em> carrying a
+  water-quality violation history — a legitimate reason to <strong>look</strong>, not proof of
+  anything.</li>
+<li>The order is a <strong>triage aid</strong>, not a danger ranking. Two buildings a few places
+  apart are effectively tied given the underlying uncertainty.</li>
+<li>Because the signals are largely <em>detection/compliance</em>, the score will tend to
+  surface diligent-but-overdue buildings and larger systems — read it as "where
+  monitoring has gaps," and pair it with actual testing before drawing conclusions.</li>
+</ul>
+<h2>Limitations</h2>
+<ul>
+<li>No public dataset contains the variables that determine <em>Legionella</em> growth, so
+  this cannot be a true risk model.</li>
+<li>The parent case-control model is underpowered (only ~74 outbreak cases) and its
+  associations are weak and largely confounded by building size.</li>
+<li>Percentiles are <strong>relative to the group scored</strong> — a "high" score in one ZIP is
+  not comparable to another area with different testing norms.</li>
+<li>Association ≠ causation; a score is a prompt to investigate, nothing more.</li>
+</ul>
+<h2>Reproducibility</h2>
+<p>Compute the four factors from the two registration/inspection datasets, percentile-
+rank each within your chosen population (a ZIP, a borough, citywide), apply the
+weights above, and sort. Any spreadsheet or a few lines of Python reproduce it.</p>
+<blockquote>
+<p><strong>Not an official record.</strong> This methodology is an independent analytical aid,
+not affiliated with the NYC Health Department, and produces no determination
+about any specific building. For official information, see nyc.gov/health or call 311.</p>
+</blockquote></div>
+</body>
+</html>
