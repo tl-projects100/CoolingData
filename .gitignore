@@ -5,3 +5,6 @@ data/processed/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+# private: testing-priority analysis (named ranking kept out of the public repo/site)
+src/priority_score.py
+data/processed/testing_priority_inzone.csv
