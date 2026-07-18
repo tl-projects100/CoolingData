@@ -176,7 +176,12 @@ a{color:var(--case);text-decoration-thickness:1px;text-underline-offset:2px}
   schedule, and inspected. All of that is public. We took the <strong>76 buildings whose towers
   tested positive</strong> and compared them against the <strong>other registered cooling-tower
   buildings in the same three ZIP codes</strong> — 183 buildings in all — asking a simple
-  question: <em>do the positive buildings have anything different about their history?</em></p>
+  question: <em>do the positive buildings have anything different about them?</em></p>
+  <p>We didn't stop at one or two things. We tested <strong>about 40 factors</strong> across
+  six kinds of public records — testing and inspection history, violations of every type,
+  building size and value, energy and water use, ownership and contractors, and location —
+  using standard statistics and several study designs. The short version: almost nothing
+  a regulator would flag explains which towers came back positive.</p>
 </div>
 
 <figure class="wide">
@@ -201,22 +206,23 @@ a{color:var(--case);text-decoration-thickness:1px;text-underline-offset:2px}
 <div class="col">
   <h2>Four things the data says</h2>
   <div class="findings">
-    <div class="fc"><div class="n">01</div><h3>It's about where, not who</h3>
-      <p>About <strong>40%</strong> of towers inside the outbreak ZIP codes tested positive —
-      versus almost none elsewhere in Manhattan. By far the biggest factor in a positive result
-      is simply being in the affected neighborhood.</p></div>
+    <div class="fc"><div class="n">01</div><h3>The "40%" is about testing, not risk</h3>
+      <p>You'll hear that ~40% of towers in these ZIP codes tested positive vs almost none
+      elsewhere. That gap is mostly a <strong>searchlight effect</strong>: this is the only
+      area the city blitz-tested. Low levels of <em>Legionella</em> are common in cooling
+      towers citywide — intensive testing anywhere in summer would find some.</p></div>
     <div class="fc"><div class="n">02</div><h3>Not a story of neglect</h3>
       <p>Buildings with more violations, overdue tests, or fewer inspections were <strong>not</strong>
-      more likely to test positive. The usual signs of a poorly-run building did not predict
-      <em>Legionella</em>.</p></div>
-    <div class="fc"><div class="n">03</div><h3>Bigger buildings, more testing</h3>
-      <p>Positives leaned toward <strong>larger, higher-value buildings that test their towers
-      more often</strong> — most likely because the more you test, the more you catch. It isn't
-      evidence those buildings are worse-run.</p></div>
+      more likely to test positive — even after matching buildings of similar size. The usual
+      signs of a poorly-run building did not predict <em>Legionella</em>.</p></div>
+    <div class="fc"><div class="n">03</div><h3>"Tests more" means diligent, not troubled</h3>
+      <p>Positives leaned toward larger buildings that test their towers <strong>more often</strong> —
+      and those buildings actually had <em>fewer</em> violations. So it looks like careful
+      buildings catch more simply because they look more, not that they're worse-run.</p></div>
     <div class="fc"><div class="n">04</div><h3>No single hotspot</h3>
-      <p>Positive and negative towers are <strong>intermixed block by block</strong>. Statistically,
-      there's no tight cluster — consistent with bacteria turning up diffusely across the area
-      rather than from one point.</p></div>
+      <p>Positive and negative towers are <strong>intermixed block by block</strong> — no tight
+      cluster, even by local hotspot tests. Consistent with bacteria turning up diffusely across
+      the area rather than from one point.</p></div>
   </div>
 
   <div class="callout" style="background:var(--surface-2);border-color:var(--line)">
@@ -229,15 +235,36 @@ a{color:var(--case);text-decoration-thickness:1px;text-underline-offset:2px}
     It does <em>not</em> mean any particular building did something wrong.</p></div>
   </div>
 
-  <h2>The one number that matters most</h2>
-  <p>If you remember nothing else: a tower's odds of testing positive were driven overwhelmingly
-  by <em>location</em>, not by how well its building kept up with the rules.</p>
+  <h2>Why the "40%" is misleading</h2>
+  <p>The eye-catching contrast below is real, but it mostly measures <strong>where the city
+  looked</strong>, not where the bacteria are. Investigators drew the testing boundary around
+  where people got sick, then intensively sampled towers inside it. Towers elsewhere weren't
+  part of this sweep — so they show ~0 "ordered to clean," not because they're clean, but
+  because no one ran the same test on them.</p>
   <div class="compare">
-    <div class="cbar c1"><div class="num">40%</div><div class="lab">of towers <strong>in the outbreak ZIPs</strong> tested positive</div>
+    <div class="cbar c1"><div class="num">40%</div><div class="lab">of towers <strong>tested here</strong> came back positive</div>
       <div class="track"><div class="fill" style="width:100%"></div></div></div>
-    <div class="cbar c0"><div class="num">0.07%</div><div class="lab">of towers <strong>elsewhere in Manhattan</strong></div>
+    <div class="cbar c0"><div class="num">~0%</div><div class="lab">elsewhere — but those towers were <strong>never screened</strong> in this sweep</div>
       <div class="track"><div class="fill" style="width:2%"></div></div></div>
   </div>
+  <p style="font-size:.9rem;color:var(--ink-3)">So the honest takeaway isn't "these blocks are
+  uniquely dangerous" — it's "this is the one place that got a blitz test."</p>
+
+  <h2>The factors that matter most — and aren't public</h2>
+  <p>If maintenance records don't explain which towers bloomed, what does? Almost certainly
+  the day-to-day condition <em>inside</em> each tower — and none of it is in public data:</p>
+  <ul>
+    <li><strong>Water temperature</strong> in the tower basin — the single biggest driver of growth.</li>
+    <li><strong>Chemical treatment</strong> — the exact biocide schedule, and any lapse in it.</li>
+    <li><strong>Stagnation</strong> — a pump cycling off, an idle stretch, a dead leg in the pipes.</li>
+    <li><strong>Biofilm and scale</strong>, and the condition of the mist-catching parts.</li>
+    <li><strong>The tower's make, model, and age</strong> — some designs spray far more mist than others.</li>
+    <li><strong>Lab culture results and patient locations</strong> — kept private, and the key to naming a source.</li>
+  </ul>
+  <p>Two buildings that look identical on every public record can differ completely on these.
+  <strong>That</strong> is where the answer lives — a layer below anything the city publishes.
+  Pinning down the exact source needs the Health Department's own lab and treatment data, not
+  open records.</p>
 
   <h2>What this means for you</h2>
   <p>The cleaning orders are a <strong>precaution</strong>: a positive screening test doesn't
@@ -338,6 +365,7 @@ function draw(){
     c.setAttribute('class','dot');
     c.addEventListener('pointerenter',e=>showTip(e,p));
     c.addEventListener('pointermove',moveTip);c.addEventListener('pointerleave',hideTip);
+    c.addEventListener('click',e=>{e.stopPropagation();showTip(e,p);});
     svg.appendChild(c);});
 }
 const wrap=document.getElementById('mapwrap');

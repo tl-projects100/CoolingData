@@ -143,10 +143,11 @@ td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:righ
   <p class="eyebrow">NYC Open Data · 2026 Upper East Side cluster</p>
   <h1>Which cooling towers tested positive for Legionella</h1>
   <p class="sub">Every registered cooling-tower building in the outbreak ZIP codes
-  (10028 · 10075 · 10128), placed at its true coordinates over the NYC street grid.
-  Orange = ordered to clean &amp; disinfect after a positive PCR screen; blue =
-  registered tower, not on the list. Hover any point for its history. Positive and
-  negative towers are intermixed — there is no single hotspot.</p>
+  (10028 · 10075 · 10128) — the only area the city blitz-tested. Orange = ordered to
+  clean &amp; disinfect after a positive PCR screen; blue = registered tower, not on the
+  list. Tap or hover a point for its history. Positive and negative towers are
+  <strong>intermixed</strong> — no single hotspot; which specific towers came back
+  positive isn't explained by their public maintenance records.</p>
 
   <div class="stats" id="stats"></div>
 
@@ -264,6 +265,7 @@ function draw(){
     c.addEventListener('pointerenter',e=>showTip(e,p));
     c.addEventListener('pointermove',moveTip);
     c.addEventListener('pointerleave',hideTip);
+    c.addEventListener('click',e=>{e.stopPropagation();showTip(e,p);});
     svg.appendChild(c);
   });
   drawScale();
@@ -294,10 +296,10 @@ function stats(){
   const el=document.getElementById('stats');
   const nc=P.filter(p=>p.c).length, nn=P.length-nc, rate=(nc/P.length*100).toFixed(0);
   el.innerHTML=`
-   <div class="stat c1"><div class="n">${nc}</div><div class="l">Positive towers</div></div>
+   <div class="stat c1"><div class="n">${nc}</div><div class="l">Positive &mdash; ordered to clean</div></div>
    <div class="stat c0"><div class="n">${nn}</div><div class="l">Registered, not listed</div></div>
-   <div class="stat"><div class="n">${rate}%</div><div class="l">Zone positivity</div></div>
-   <div class="stat"><div class="n">0.07%</div><div class="l">Positivity elsewhere in MN</div></div>`;
+   <div class="stat"><div class="n">${P.length}</div><div class="l">Towers in the tested zone</div></div>
+   <div class="stat"><div class="n">~0</div><div class="l">Screened outside this zone</div></div>`;
 }
 function buildTable(){
   const rows=[...P].sort((a,b)=>b.c-a.c||a.a.localeCompare(b.a));
