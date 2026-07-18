@@ -383,10 +383,12 @@ function showTip(e,p,pin){ if(!tip){tip=document.createElement('div');tip.classN
     `<div class="tr"><span>Cooling towers</span><b>${p.nt}</b></div>`;
   tip.classList.add('on'); pinned=pin||pinned; place(e);}
 function place(e){const r=wrap.getBoundingClientRect();
-  const x=e.clientX-r.left, y=e.clientY-r.top, below=y<96;
-  tip.style.left=Math.max(84,Math.min(r.width-84,x))+'px';
-  tip.style.top=(below?y+18:y-12)+'px';
-  tip.style.transform=below?'translate(-50%,0)':'translate(-50%,-100%)';}
+  const x=e.clientX-r.left, y=e.clientY-r.top;
+  const th=tip.offsetHeight||130, tw=tip.offsetWidth||210;
+  const above=y-th-14>=0;
+  tip.style.left=Math.max(tw/2+6,Math.min(r.width-tw/2-6,x))+'px';
+  tip.style.top=(above?y-12:y+16)+'px';
+  tip.style.transform=above?'translate(-50%,-100%)':'translate(-50%,0)';}
 function hideTip(){if(tip)tip.classList.remove('on');pinned=false;}
 svg.addEventListener('click',hideTip);
 draw();
