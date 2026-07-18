@@ -94,7 +94,8 @@ svg{display:block;width:100%;height:auto;aspect-ratio:960/600;touch-action:manip
 .street{stroke:var(--street);fill:none;stroke-linecap:round}
 .street.major{stroke:var(--street-major);stroke-width:2.4}
 .slabel{fill:var(--ink-3);font-family:var(--mono);font-size:9px;text-transform:uppercase}
-.dot{cursor:pointer}
+.dot{cursor:pointer;stroke:var(--surface);stroke-width:.8}
+.dot.pos{fill:var(--case-map)} .dot.neg{fill:var(--control-map)}
 .tip{position:absolute;pointer-events:none;z-index:20;background:var(--ink);
   color:var(--bg);border-radius:10px;padding:8px 11px;font-size:.8rem;max-width:230px;
   opacity:0;transition:opacity .1s;box-shadow:var(--shadow);transform:translate(-50%,calc(-100% - 12px))}
@@ -341,10 +342,8 @@ function draw(){
   shown.forEach(p=>{
     const c=document.createElementNS(NS,'circle');
     c.setAttribute('cx',sx(p.lon));c.setAttribute('cy',sy(p.lat));c.setAttribute('r',p.c?6:5.2);
-    c.setAttribute('fill',p.c?'var(--case-map)':'var(--control-map)');
     c.setAttribute('fill-opacity',p.c?'.92':'.78');
-    c.setAttribute('stroke','var(--surface)');c.setAttribute('stroke-width','.8');
-    c.setAttribute('class','dot');c.setAttribute('pointer-events','none');
+    c.setAttribute('class','dot '+(p.c?'pos':'neg'));c.setAttribute('pointer-events','none');
     svg.appendChild(c);});
   shown.forEach(p=>{                       // transparent hit targets on top
     const h=document.createElementNS(NS,'circle');

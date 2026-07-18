@@ -86,7 +86,8 @@ svg{display:block;width:100%;height:auto;aspect-ratio:960/640;touch-action:manip
 .street.major{stroke:var(--street-major);stroke-width:2.4}
 .slabel{fill:var(--ink-3);font-family:var(--mono);font-size:9px;
   letter-spacing:.02em;text-transform:uppercase}
-.dot{cursor:pointer}
+.dot{cursor:pointer;stroke:var(--surface);stroke-width:.8}
+.dot.pos{fill:var(--case)} .dot.neg{fill:var(--control)}
 .dot:hover{stroke:var(--ink);stroke-width:1.5}
 .tip{position:absolute;pointer-events:none;z-index:20;background:var(--ink);
   color:var(--surface);border-radius:10px;padding:9px 11px;font-size:.8rem;
@@ -196,7 +197,7 @@ const AVE={'5':'5 Av','3':'3 Av','2':'2 Av','1':'1 Av'};
 const CROSS=new Set(['72','76','79','82','86','90','96']);
 
 function draw(){
-  svg.innerHTML='';
+  while(svg.firstChild) svg.removeChild(svg.firstChild);  // Safari-safe clear (SVG innerHTML throws in WebKit)
   // --- street basemap ---
   const base=document.createElementNS(NS,'g');
   const labelPts={};
@@ -241,10 +242,8 @@ function draw(){
   shown.forEach(p=>{
     const c=document.createElementNS(NS,'circle');
     c.setAttribute('cx',SX(p));c.setAttribute('cy',SY(p));c.setAttribute('r',radius(p));
-    c.setAttribute('fill',p.c?'var(--case)':'var(--control)');
     c.setAttribute('fill-opacity',p.c?'.92':'.78');
-    c.setAttribute('stroke','var(--surface)');c.setAttribute('stroke-width','.8');
-    c.setAttribute('class','dot');c.setAttribute('pointer-events','none');
+    c.setAttribute('class','dot '+(p.c?'pos':'neg'));c.setAttribute('pointer-events','none');
     svg.appendChild(c);
   });
   // --- large transparent hit targets on top, for reliable tap/click ---
