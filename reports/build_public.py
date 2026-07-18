@@ -209,9 +209,10 @@ a{color:var(--case);text-decoration-thickness:1px;text-underline-offset:2px}
   <div class="findings">
     <div class="fc"><div class="n">01</div><h3>The "40%" is about testing, not risk</h3>
       <p>You'll hear that ~40% of towers in these ZIP codes tested positive vs almost none
-      elsewhere. That gap is mostly a <strong>searchlight effect</strong>: this is the only
-      area the city blitz-tested. Low levels of <em>Legionella</em> are common in cooling
-      towers citywide — intensive testing anywhere in summer would find some.</p></div>
+      elsewhere. That gap is mostly a <strong>searchlight effect</strong>: these ZIPs are the
+      only place the city intensively screened, because that's where people fell ill. The ~0%
+      elsewhere reflects <em>not being tested</em> — not being clean; <em>Legionella</em> can
+      grow in cooling towers anywhere, especially in summer heat.</p></div>
     <div class="fc"><div class="n">02</div><h3>Not a story of neglect</h3>
       <p>Buildings with more violations, overdue tests, or fewer inspections were <strong>not</strong>
       more likely to test positive — even after matching buildings of similar size. The usual
