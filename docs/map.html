@@ -119,6 +119,12 @@ td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:righ
 .pill{font-size:.7rem;padding:1px 8px;border-radius:999px;font-family:var(--mono)}
 .pill.case{background:var(--case-soft);color:var(--case)}
 .pill.control{background:var(--control-soft);color:var(--control)}
+.glossary{margin:14px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 16px;box-shadow:var(--shadow)}
+.glossary summary{cursor:pointer;font-weight:600;font-size:.9rem;padding:13px 0;color:var(--ink);list-style-position:inside}
+.glossary summary::-webkit-details-marker{color:var(--case)}
+.glossary dl{margin:0 0 14px;font-size:.85rem}
+.glossary dt{font-weight:650;color:var(--ink);margin-top:12px}
+.glossary dd{margin:2px 0 0;color:var(--ink-2);line-height:1.5}
 .foot{color:var(--ink-3);font-size:.8rem;margin:16px 2px 0;max-width:74ch}
 .foot b{color:var(--ink-2);font-weight:600}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -162,6 +168,32 @@ td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:righ
     </div>
     <div class="tableview" id="tableview"></div>
   </div>
+
+  <details class="glossary">
+    <summary>What the numbers in each popup mean</summary>
+    <dl>
+      <dt>PCR-positive — ordered to clean</dt>
+      <dd>The building's cooling tower screened positive for <em>Legionella</em> on a rapid PCR
+      test, and the Health Department ordered it cleaned &amp; disinfected. (PCR can't tell live
+      from dead bacteria, so cleaning is precautionary.)</dd>
+      <dt>Registered · not on DOH list</dt>
+      <dd>A cooling tower registered with the city that was <em>not</em> on that clean/disinfect
+      list — the comparison group we measure the positives against.</dd>
+      <dt>ZIP</dt>
+      <dd>The building's postal code (all within the three outbreak ZIPs: 10028 / 10075 / 10128).</dd>
+      <dt>Cooling towers</dt>
+      <dd>How many separate cooling-tower systems the building has registered with NYC.</dd>
+      <dt>Registered (yrs ago)</dt>
+      <dd>How long ago the building first registered a cooling tower — a rough age of its cooling
+      system on record. Citywide registration began in 2015, so this maxes out around then.</dd>
+      <dt>Days since last test</dt>
+      <dd>Days between the building's most recent routine <em>Legionella</em> water sample and the
+      start of the July 2026 investigation. Owners are required to sample on a set schedule.</dd>
+      <dt>Violations (all-time)</dt>
+      <dd>Total cooling-tower regulatory violations the building has received in city inspections
+      since 2017 — paperwork and water-management issues alike.</dd>
+    </dl>
+  </details>
 
   <p class="foot"><b>Read with care.</b> A point marks a <em>building's</em> cooling
   tower(s); the outcome is tower positivity during the July 2026 investigation, not
