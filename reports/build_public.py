@@ -191,7 +191,7 @@ a{color:var(--case);text-decoration-thickness:1px;text-underline-offset:2px}
       <h3>Positive and negative towers sit side by side</h3></div>
     <div class="leg">
       <span><i style="background:var(--case-map)"></i>Tested positive &mdash; ordered to clean (74)</span>
-      <span><i style="background:var(--control-map)"></i>Registered tower, not on the list (109)</span>
+      <span><i style="background:var(--control-map)"></i>Registered tower in the same ZIPs, not on the DOH list (109)</span>
     </div>
     <div class="mapwrap" id="mapwrap">
       <svg id="svg" viewBox="0 0 960 600" role="img"
@@ -378,7 +378,7 @@ const wrap=document.getElementById('mapwrap');
 let pinned=false;
 function showTip(e,p,pin){ if(!tip){tip=document.createElement('div');tip.className='tip';wrap.appendChild(tip);}
   tip.innerHTML=`<div class="ta">${p.a}</div>`+
-    `<div class="tr"><span>${p.c?'Tested positive':'Not on the list'}</span><b>ZIP ${p.zip}</b></div>`+
+    `<div class="tr"><span>${p.c?'Tested positive':'Not on DOH list'}</span><b>ZIP ${String(p.zip).split('.')[0]}</b></div>`+
     `<div class="tr"><span>Cooling towers</span><b>${p.nt}</b></div>`;
   tip.classList.add('on'); pinned=pin||pinned; place(e);}
 function place(e){const r=wrap.getBoundingClientRect();

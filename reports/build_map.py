@@ -112,8 +112,9 @@ svg{display:block;width:100%;height:auto;aspect-ratio:960/640;touch-action:manip
   transform:translate(-50%,calc(-100% - 12px))}
 .tip.on{opacity:1}
 .tip .ta{font-weight:650;margin-bottom:4px;font-size:.85rem}
-.tip .tr{display:flex;justify-content:space-between;gap:14px;color:rgba(255,255,255,.72)}
-.tip .tr b{color:#fff;font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:500}
+.tip .tr{display:flex;justify-content:space-between;gap:14px}
+.tip .tr span{opacity:.62}
+.tip .tr b{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600}
 .tip .badge{display:inline-block;font-size:.68rem;padding:1px 7px;border-radius:999px;
   margin-bottom:5px;font-family:var(--mono);letter-spacing:.03em}
 .badge.case{background:var(--case-soft);color:var(--case)}
@@ -144,11 +145,12 @@ td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:righ
   <p class="eyebrow">NYC Open Data · 2026 Upper East Side cluster</p>
   <h1>Which cooling towers tested positive for Legionella</h1>
   <p class="sub">Every registered cooling-tower building in the outbreak ZIP codes
-  (10028 · 10075 · 10128) — the only area the city blitz-tested. Orange = ordered to
-  clean &amp; disinfect after a positive PCR screen; blue = registered tower, not on the
-  list. Tap or hover a point for its history. Positive and negative towers are
-  <strong>intermixed</strong> — no single hotspot; which specific towers came back
-  positive isn't explained by their public maintenance records.</p>
+  (10028 · 10075 · 10128) — the only area the city blitz-tested. <strong>Orange</strong> =
+  a tower the Health Department ordered cleaned after a positive PCR screen; <strong>blue</strong>
+  = another registered cooling tower in the same ZIPs that was <em>not</em> on that order
+  (the comparison group). Tap or hover a point for its history. Positive and negative
+  towers are <strong>intermixed</strong> — no single hotspot; which specific towers came
+  back positive isn't explained by their public maintenance records.</p>
 
   <div class="stats" id="stats"></div>
 
@@ -286,12 +288,12 @@ const wrapEl=document.getElementById('mapwrap');
 let pinned=false;
 function showTip(e,p,pin){
   const cls=p.c?'case':'control';
-  tip.innerHTML=`<span class="badge ${cls}">${p.c?'PCR-positive':'not listed'}</span>`+
+  tip.innerHTML=`<span class="badge ${cls}">${p.c?'PCR-positive — ordered to clean':'Registered · not on DOH list'}</span>`+
     `<div class="ta">${p.a}</div>`+
-    `<div class="tr"><span>ZIP</span><b>${p.zip}</b></div>`+
+    `<div class="tr"><span>ZIP</span><b>${String(p.zip).split('.')[0]}</b></div>`+
     `<div class="tr"><span>Cooling towers</span><b>${p.nt}</b></div>`+
-    `<div class="tr"><span>Reg. age (yrs)</span><b>${p.age??'—'}</b></div>`+
-    `<div class="tr"><span>Days since sample</span><b>${p.dls??'—'}</b></div>`+
+    `<div class="tr"><span>Registered (yrs ago)</span><b>${p.age??'—'}</b></div>`+
+    `<div class="tr"><span>Days since last test</span><b>${p.dls??'—'}</b></div>`+
     `<div class="tr"><span>Violations (all-time)</span><b>${p.nv}</b></div>`;
   tip.classList.add('on'); pinned=pin||pinned; place(e);
 }
@@ -308,7 +310,7 @@ function stats(){
   const nc=P.filter(p=>p.c).length, nn=P.length-nc, rate=(nc/P.length*100).toFixed(0);
   el.innerHTML=`
    <div class="stat c1"><div class="n">${nc}</div><div class="l">Positive &mdash; ordered to clean</div></div>
-   <div class="stat c0"><div class="n">${nn}</div><div class="l">Registered, not listed</div></div>
+   <div class="stat c0"><div class="n">${nn}</div><div class="l">Registered here, not on DOH list</div></div>
    <div class="stat"><div class="n">${P.length}</div><div class="l">Towers in the tested zone</div></div>
    <div class="stat"><div class="n">~0</div><div class="l">Screened outside this zone</div></div>`;
 }

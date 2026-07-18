@@ -38,7 +38,7 @@ for r in z.itertuples():
     if c: moved += 1
     if pd.isna(lat) or pd.isna(lon): continue
     pts.append({"a": addr.get(r.bin, r.bin), "lat": round(float(lat),6), "lon": round(float(lon),6),
-                "c": int(r.case), "zip": str(r.zip), "nt": int(r.n_towers),
+                "c": int(r.case), "zip": str(r.zip).split(".")[0], "nt": int(r.n_towers),
                 "age": None if pd.isna(r.reg_age_days) else round(r.reg_age_days/365.25,1),
                 "dls": None if pd.isna(pd.to_numeric(r.days_since_last_sample, errors="coerce"))
                        else int(pd.to_numeric(r.days_since_last_sample, errors="coerce")),
