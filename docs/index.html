@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UES Legionnaires' × Cooling Towers — Overview</title>
+</head>
+<body>
+<style>
+:root{--bg:#eceae4;--surface:#faf9f6;--surface2:#efeee9;--ink:#16181b;--ink2:#4a4f55;--ink3:#7c828a;
+ --line:#e3e5e4;--case:#c9531f;--control:#2565c4;--shadow:0 1px 2px rgba(0,0,0,.05),0 10px 30px rgba(0,0,0,.07);
+ --serif:ui-serif,Georgia,serif;--sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+ --mono:ui-monospace,"SF Mono",Menlo,monospace}
+@media(prefers-color-scheme:dark){:root{--bg:#101214;--surface:#181b1e;--surface2:#202427;--ink:#f0f2f3;
+ --ink2:#bfc5cb;--ink3:#868d95;--line:#2b3034;--case:#f0793f;--control:#5896ec}}
+*{box-sizing:border-box}body{margin:0}
+.pg{font-family:var(--sans);background:var(--bg);color:var(--ink);min-height:100vh;
+ padding:clamp(24px,5vw,64px) 20px 80px;line-height:1.6}
+.col{max-width:760px;margin:0 auto}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--case);margin:0 0 12px}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.9rem,5vw,2.9rem);line-height:1.05;margin:0 0 14px;letter-spacing:-.02em}
+.dek{font-size:1.12rem;color:var(--ink2);margin:0 0 10px;max-width:60ch}
+.note{font-size:.85rem;color:var(--ink3);margin:0 0 28px}
+.grid{display:grid;gap:14px;margin:26px 0}
+@media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+.card{display:block;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);
+ border-radius:16px;padding:22px 24px;box-shadow:var(--shadow);transition:transform .12s,border-color .12s}
+.card:hover{transform:translateY(-2px);border-color:var(--ink3)}
+.card .ic{font-size:1.6rem}
+.card h2{font-family:var(--serif);font-size:1.3rem;margin:10px 0 6px}
+.card p{font-size:.92rem;color:var(--ink2);margin:0}
+.card.wide{grid-column:1/-1}
+.sub{font-family:var(--mono);font-size:.72rem;color:var(--ink3);margin-top:10px;letter-spacing:.03em}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 30px}
+.btn{font:inherit;font-size:.9rem;text-decoration:none;color:var(--ink);background:var(--surface2);
+ border:1px solid var(--line);border-radius:999px;padding:8px 16px;display:inline-flex;gap:7px;align-items:center}
+.btn:hover{border-color:var(--ink3)}
+h3.sec{font-family:var(--serif);font-size:1.15rem;margin:30px 0 6px}
+.foot{border-top:1px solid var(--line);margin-top:40px;padding-top:20px;font-size:.82rem;color:var(--ink3);max-width:70ch}
+.foot code{font-family:var(--mono);font-size:.9em}
+.disc{background:var(--surface2);border-radius:12px;padding:14px 16px;margin-top:16px;font-size:.8rem;color:var(--ink3)}
+a{color:var(--case)}
+</style>
+<div class="pg"><div class="col">
+  <p class="eyebrow">Independent analysis · NYC Open Data</p>
+  <h1>Upper East Side Legionnaires' &times; cooling-tower data</h1>
+  <p class="dek">Do the 76 UES buildings ordered to clean their cooling towers in the 2026
+  Legionnaires' cluster differ from their neighbors in the public record? A reproducible
+  analysis of NYC Open Data — with an interactive map, a plain-language explainer, and the
+  full technical write-up.</p>
+  <p class="note">Not affiliated with or endorsed by the NYC Health Department. For official
+  guidance, see <a href="https://www.nyc.gov/site/doh/health/health-topics/legionnaires-disease.page">nyc.gov/health</a> or call 311.</p>
+
+  <div class="grid">
+    <a class="card" href="report.html"><div class="ic">💧</div>
+      <h2>Read the explainer</h2><p>Plain-language walkthrough: what the data shows,
+      why the "40%" is a testing artifact, and the factors we couldn't measure.</p>
+      <div class="sub">HTML · plain language</div></a>
+    <a class="card" href="map.html"><div class="ic">🗺️</div>
+      <h2>Explore the map</h2><p>Every registered cooling tower in the outbreak ZIPs over the
+      NYC street grid. Tap a building for its history.</p>
+      <div class="sub">HTML · interactive</div></a>
+    <a class="card wide" href="findings.html"><div class="ic">📊</div>
+      <h2>Technical findings</h2><p>Full methodology and results: matching, ~40 predictors
+      across six datasets, logistic regression, spatial tests, and honest limitations.</p>
+      <div class="sub">HTML · detailed</div></a>
+  </div>
+
+  <h3 class="sec">Download</h3>
+  <div class="row">
+    <a class="btn" href="explainer.pdf">⬇︎ Explainer (PDF)</a>
+    <a class="btn" href="technical-findings.pdf">⬇︎ Technical findings (PDF)</a>
+  </div>
+
+  <h3 class="sec">Data &amp; code</h3>
+  <div class="row">
+    <a class="btn" href="https://github.com/tl-projects100/coolingdata">⌥ GitHub repository</a>
+    <a class="btn" href="data/affected_buildings.csv">76 affected buildings (CSV)</a>
+    <a class="btn" href="data/analysis_table.csv">Analysis table (CSV)</a>
+    <a class="btn" href="data/odds_ratios_primary.csv">Odds ratios (CSV)</a>
+    <a class="btn" href="data/map_points.json">Map points (JSON)</a>
+  </div>
+
+  <div class="foot">
+    <p><b>Sources.</b> NYC Cooling Tower Registrations (<code>y4fw-iqfr</code>), Cooling Tower
+    Inspections (<code>f9wb-g8mb</code>), PLUTO (<code>64uk-42ks</code>), DOB/HPD violations,
+    LL84 benchmarking, Street Centerline (<code>inkn-q76z</code>) — all via
+    <a href="https://opendata.cityofnewyork.us">NYC Open Data</a> — plus the NYC DOH
+    clean-and-disinfect list. Reproduce with the scripts in the repo (<code>src/</code>).</p>
+    <div class="disc"><b>Independent analysis — not an official record.</b> Outcome is cooling-tower
+    positivity, not human illness; patient locations are private. Findings are exploratory and
+    limited by public data. Nothing here is medical advice.</div>
+  </div>
+</div></div>
+</body>
+</html>

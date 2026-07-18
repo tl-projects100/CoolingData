@@ -1,0 +1,77 @@
+address_raw,status_group,registered_expected
+180 East End Ave.,A_doh0710_complete,True
+1750 York Ave.,A_doh0710_complete,True
+1660 Second Ave,A_doh0710_complete,True
+1438 Third Ave.,A_doh0710_complete,True
+1511 Third Ave.,A_doh0710_complete,True
+1551 Third Ave.,A_doh0710_complete,True
+1071 Fifth Ave.,A_doh0710_complete,True
+1080 Fifth Ave.,A_doh0710_complete,True
+1001 Fifth Ave.,A_doh0710_complete,True
+240 E. 82nd St.,A_doh0710_complete,True
+8 E. 83rd St.,A_doh0710_complete,True
+145 E. 84th St.,A_doh0710_complete,True
+117 E. 85th St.,A_doh0710_complete,True
+125 E. 87th St.,A_doh0710_complete,True
+152 E. 87th St.,A_doh0710_complete,True
+120 E. 87th St.,A_doh0710_complete,True
+501 E. 87th St.,A_doh0710_complete,True
+168 E. 88th St.,A_doh0710_complete,True
+160 E. 88th St.,A_doh0710_complete,True
+1875 Second Ave.,B_doh0710_expected,True
+1110 Fifth Ave.,B_doh0710_expected,True
+153 E. 78th St.,B_doh0710_expected,True
+135 E. 79th St.,B_doh0710_expected,True
+300 E. 79th St.,B_doh0710_expected,True
+238 E. 81st St.,B_doh0710_expected,True
+160 E. 84th St.,B_doh0710_expected,True
+114 E. 85th St.,B_doh0710_expected,True
+401 E. 88th St.,B_doh0710_expected,True
+333 E. 91st St.,B_doh0710_expected,True
+354 E. 91st St.,B_doh0710_expected,True
+312 E. 95th St.,B_doh0710_expected,True
+1130 Fifth Avenue,C_added_complete,True
+1150 Madison Avenue,C_added_complete,True
+1239 Madison Avenue,C_added_complete,True
+1275 Madison Avenue,C_added_complete,True
+1020 Park Avenue,C_added_complete,True
+1157 Lexington Avenue,C_added_complete,True
+1755 York Avenue,C_added_complete,True
+60 East End Avenue,C_added_complete,True
+188 East 78th Street,C_added_complete,True
+200 East 78th Street,C_added_complete,True
+124 East 79th Street,C_added_complete,True
+201 East 79th Street,C_added_complete,True
+211 East 79th Street,C_added_complete,True
+511 East 80th Street,C_added_complete,True
+444 East 82nd Street,C_added_complete,True
+500 East 83rd Street,C_added_complete,True
+7 East 86th Street,C_added_complete,True
+401 East 86th Street,C_added_complete,True
+444 East 86th Street,C_added_complete,True
+445 East 86th Street,C_added_complete,True
+51 East 87th Street,C_added_complete,True
+9 East 90th Street,C_added_complete,True
+410 East 92nd Street,C_added_complete,True
+40 East 94th Street,C_added_complete,True
+980 Fifth Avenue,D_added_by0716,True
+1000 Fifth Avenue,D_added_by0716,True
+920 Park Avenue,D_added_by0716,True
+1249 Park Avenue,D_added_by0716,True
+1025 Madison Avenue,D_added_by0716,True
+1381 Lexington Avenue,D_added_by0716,True
+1513 First Avenue,D_added_by0716,True
+1520 York Avenue,D_added_by0716,True
+80 East End Avenue,D_added_by0716,True
+90 East End Avenue,D_added_by0716,True
+100 East End Avenue,D_added_by0716,True
+155 East 79th Street,D_added_by0716,True
+40 East 80th Street,D_added_by0716,True
+25 East 83rd Street,D_added_by0716,True
+13 East 84th Street,D_added_by0716,True
+40 East 84th Street,D_added_by0716,True
+108 East 89th Street,D_added_by0716,True
+22 East 91st Street,D_added_by0716,True
+200 East 95th Street,D_added_by0716,True
+235 East 95th Street,D_added_by0716,True
+300 East 83rd Street,E_unregistered_complete,False
