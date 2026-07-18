@@ -245,7 +245,7 @@ const sy=(lat)=>VBH-(offy+(lat-by0)*s);
 function SX(p){return sx(p.lon);} function SY(p){return sy(p.lat);}
 const state={case:true,ctrl:true,sizeByTowers:false};
 const AVE={'5':'5 Av','3':'3 Av','2':'2 Av','1':'1 Av'};
-const CROSS=new Set(['72','76','79','82','86','90','96']);
+const CROSS=new Set(Array.from({length:40},(_,i)=>String(66+i)));  // 66–105 St; overlap check thins them
 
 function draw(){
   while(svg.firstChild) svg.removeChild(svg.firstChild);  // Safari-safe clear (SVG innerHTML throws in WebKit)

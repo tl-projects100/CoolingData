@@ -122,22 +122,9 @@ Stack: Python — `pandas`, `requests`/`sodapy`, `statsmodels`, `scikit-learn`,
 
 ## 7. Phases
 
-1. **Access + ingest** — resolve network access (see below), pull the 3 sources.
+1. **Ingest** — pull the 3 sources (registrations, inspections, DOH list).
 2. **Match & label** — build the case/control analysis table + QA report.
 3. **EDA** — descriptives, maps, association tests.
 4. **Regression** — logistic + penalized, ORs, diagnostics.
 5. **Spatial + extras** — autocorrelation, robustness.
 6. **Report** — findings.md + figures + interactive map; commit & push.
-
-## 8. ⚠️ Blocker: data access from this environment
-
-This cloud session's egress policy **blocks** `www.nyc.gov`,
-`data.cityofnewyork.us`, and `health.data.ny.gov`; `WebFetch` is disabled too.
-So we cannot pull the API or scrape the press release from here **as configured**.
-Resolution options:
-- **(a)** Allowlist those hosts in the environment's network policy (admin), then
-  everything runs here end-to-end. *(cleanest)*
-- **(b)** You download the 3 files (2 CSVs + the address list) and drop them in
-  `data/raw/`; I build the full pipeline against local files.
-- **(c)** Run the pipeline on your local machine (open network); I write all the
-  code here and you execute it there.

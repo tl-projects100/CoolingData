@@ -324,7 +324,7 @@ const bx0=xmin-ex,bx1=xmax+ex,by0=ymin-ey,by1=ymax+ey,spx=bx1-bx0,spy=by1-by0;
 const s=Math.min((VBW-2*PAD)/spx,(VBH-2*PAD)/spy);
 const ox=(VBW-spx*s)/2, oy=(VBH-spy*s)/2;
 const sx=lon=>ox+(lon*kx-bx0)*s, sy=lat=>VBH-(oy+(lat-by0)*s);
-const AVE={'5':'5 Av','3':'3 Av','2':'2 Av','1':'1 Av'}, CROSS=new Set(['72','79','86','96']);
+const AVE={'5':'5 Av','3':'3 Av','2':'2 Av','1':'1 Av'}, CROSS=new Set(Array.from({length:40},(_,i)=>String(66+i)));
 let tip;
 function draw(){
   const base=document.createElementNS(NS,'g'); const lp={};
