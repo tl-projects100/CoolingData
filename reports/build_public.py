@@ -109,7 +109,7 @@ figure{margin:34px 0}
 .leg span{display:inline-flex;align-items:center;gap:7px}
 .leg i{width:12px;height:12px;border-radius:50%;display:inline-block}
 .mapwrap{position:relative}
-svg{display:block;width:100%;height:auto;aspect-ratio:960/600;background:var(--surface-2)}
+svg{display:block;width:100%;height:auto;aspect-ratio:960/600;touch-action:manipulation;background:var(--surface-2)}
 .street{stroke:var(--street);fill:none;stroke-linecap:round}
 .street.major{stroke:var(--street-major);stroke-width:2.4}
 .slabel{fill:var(--ink-3);font-family:var(--mono);font-size:9px;text-transform:uppercase}
@@ -356,27 +356,39 @@ function draw(){
     t.setAttribute('class','slabel');t.setAttribute('text-anchor',ave?'middle':'start');
     t.textContent=ave?AVE[nm]:nm+' St';lab.appendChild(t);}
   svg.appendChild(lab);
-  [...P].sort((a,b)=>a.c-b.c).forEach(p=>{
+  const shown=[...P].sort((a,b)=>a.c-b.c);
+  shown.forEach(p=>{
     const c=document.createElementNS(NS,'circle');
     c.setAttribute('cx',sx(p.lon));c.setAttribute('cy',sy(p.lat));c.setAttribute('r',p.c?6:5.2);
     c.setAttribute('fill',p.c?'var(--case-map)':'var(--control-map)');
     c.setAttribute('fill-opacity',p.c?'.92':'.78');
     c.setAttribute('stroke','var(--surface)');c.setAttribute('stroke-width','.8');
-    c.setAttribute('class','dot');
-    c.addEventListener('pointerenter',e=>showTip(e,p));
-    c.addEventListener('pointermove',moveTip);c.addEventListener('pointerleave',hideTip);
-    c.addEventListener('click',e=>{e.stopPropagation();showTip(e,p);});
+    c.setAttribute('class','dot');c.setAttribute('pointer-events','none');
     svg.appendChild(c);});
+  shown.forEach(p=>{                       // transparent hit targets on top
+    const h=document.createElementNS(NS,'circle');
+    h.setAttribute('cx',sx(p.lon));h.setAttribute('cy',sy(p.lat));h.setAttribute('r',13);
+    h.setAttribute('fill','transparent');h.setAttribute('pointer-events','all');h.style.cursor='pointer';
+    h.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')showTip(e,p,false);});
+    h.addEventListener('pointermove',e=>{if(e.pointerType==='mouse'&&!pinned)place(e);});
+    h.addEventListener('pointerleave',()=>{if(!pinned)hideTip();});
+    h.addEventListener('click',e=>{e.stopPropagation();showTip(e,p,true);});
+    svg.appendChild(h);});
 }
 const wrap=document.getElementById('mapwrap');
-function showTip(e,p){ if(!tip){tip=document.createElement('div');tip.className='tip';wrap.appendChild(tip);}
+let pinned=false;
+function showTip(e,p,pin){ if(!tip){tip=document.createElement('div');tip.className='tip';wrap.appendChild(tip);}
   tip.innerHTML=`<div class="ta">${p.a}</div>`+
     `<div class="tr"><span>${p.c?'Tested positive':'Not on the list'}</span><b>ZIP ${p.zip}</b></div>`+
     `<div class="tr"><span>Cooling towers</span><b>${p.nt}</b></div>`;
-  tip.classList.add('on');moveTip(e);}
-function moveTip(e){const r=wrap.getBoundingClientRect();
-  tip.style.left=(e.clientX-r.left)+'px';tip.style.top=(e.clientY-r.top)+'px';}
-function hideTip(){if(tip)tip.classList.remove('on');}
+  tip.classList.add('on'); pinned=pin||pinned; place(e);}
+function place(e){const r=wrap.getBoundingClientRect();
+  const x=e.clientX-r.left, y=e.clientY-r.top, below=y<96;
+  tip.style.left=Math.max(84,Math.min(r.width-84,x))+'px';
+  tip.style.top=(below?y+18:y-12)+'px';
+  tip.style.transform=below?'translate(-50%,0)':'translate(-50%,-100%)';}
+function hideTip(){if(tip)tip.classList.remove('on');pinned=false;}
+svg.addEventListener('click',hideTip);
 draw();
 </script>
 """

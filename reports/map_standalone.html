@@ -81,7 +81,7 @@ h1{font-size:clamp(1.5rem,3.4vw,2.3rem);line-height:1.1;margin:0 0 6px;
 .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;
   box-shadow:var(--shadow);overflow:hidden;position:relative}
 .mapwrap{position:relative}
-svg{display:block;width:100%;height:auto;aspect-ratio:960/640;touch-action:none;background:var(--surface-2)}
+svg{display:block;width:100%;height:auto;aspect-ratio:960/640;touch-action:manipulation;background:var(--surface-2)}
 .street{stroke:var(--street);fill:none;stroke-linecap:round}
 .street.major{stroke:var(--street-major);stroke-width:2.4}
 .slabel{fill:var(--ink-3);font-family:var(--mono);font-size:9px;
@@ -235,21 +235,29 @@ function draw(){
     lab.appendChild(t);
   }
   svg.appendChild(lab);
-  // --- dots ---
-  const shown=P.filter(p=>(p.c?state.case:state.ctrl));
-  shown.sort((a,b)=>a.c-b.c).forEach(p=>{
+  // --- dots (visible marks, pointer-events off) ---
+  const shown=P.filter(p=>(p.c?state.case:state.ctrl)).sort((a,b)=>a.c-b.c);
+  const radius=p=>state.sizeByTowers?4.5+Math.sqrt(p.nt)*2.3:5.5;
+  shown.forEach(p=>{
     const c=document.createElementNS(NS,'circle');
-    let r=5.5; if(state.sizeByTowers) r=4.5+Math.sqrt(p.nt)*2.3;
-    c.setAttribute('cx',SX(p));c.setAttribute('cy',SY(p));c.setAttribute('r',r);
+    c.setAttribute('cx',SX(p));c.setAttribute('cy',SY(p));c.setAttribute('r',radius(p));
     c.setAttribute('fill',p.c?'var(--case)':'var(--control)');
     c.setAttribute('fill-opacity',p.c?'.92':'.78');
     c.setAttribute('stroke','var(--surface)');c.setAttribute('stroke-width','.8');
-    c.setAttribute('class','dot');
-    c.addEventListener('pointerenter',e=>showTip(e,p));
-    c.addEventListener('pointermove',moveTip);
-    c.addEventListener('pointerleave',hideTip);
-    c.addEventListener('click',e=>{e.stopPropagation();showTip(e,p);});
+    c.setAttribute('class','dot');c.setAttribute('pointer-events','none');
     svg.appendChild(c);
+  });
+  // --- large transparent hit targets on top, for reliable tap/click ---
+  shown.forEach(p=>{
+    const h=document.createElementNS(NS,'circle');
+    h.setAttribute('cx',SX(p));h.setAttribute('cy',SY(p));
+    h.setAttribute('r',Math.max(radius(p)+7,12));
+    h.setAttribute('fill','transparent');h.setAttribute('pointer-events','all');h.style.cursor='pointer';
+    h.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')showTip(e,p,false);});
+    h.addEventListener('pointermove',e=>{if(e.pointerType==='mouse'&&!pinned)place(e);});
+    h.addEventListener('pointerleave',()=>{if(!pinned)hideTip();});
+    h.addEventListener('click',e=>{e.stopPropagation();showTip(e,p,true);});
+    svg.appendChild(h);
   });
   drawScale();
 }
@@ -259,7 +267,8 @@ function drawScale(){
   document.getElementById('sbl').textContent='200 m';
 }
 const wrapEl=document.getElementById('mapwrap');
-function showTip(e,p){
+let pinned=false;
+function showTip(e,p,pin){
   const cls=p.c?'case':'control';
   tip.innerHTML=`<span class="badge ${cls}">${p.c?'PCR-positive':'not listed'}</span>`+
     `<div class="ta">${p.a}</div>`+
@@ -268,13 +277,16 @@ function showTip(e,p){
     `<div class="tr"><span>Reg. age (yrs)</span><b>${p.age??'—'}</b></div>`+
     `<div class="tr"><span>Days since sample</span><b>${p.dls??'—'}</b></div>`+
     `<div class="tr"><span>Violations (all-time)</span><b>${p.nv}</b></div>`;
-  tip.classList.add('on'); moveTip(e);
+  tip.classList.add('on'); pinned=pin||pinned; place(e);
 }
-function moveTip(e){
+function place(e){
   const r=wrapEl.getBoundingClientRect();
-  tip.style.left=(e.clientX-r.left)+'px'; tip.style.top=(e.clientY-r.top)+'px';
+  const x=e.clientX-r.left, y=e.clientY-r.top, below=y<96;
+  tip.style.left=Math.max(84,Math.min(r.width-84,x))+'px';
+  tip.style.top=(below?y+18:y-12)+'px';
+  tip.style.transform=below?'translate(-50%,0)':'translate(-50%,-100%)';
 }
-function hideTip(){tip.classList.remove('on');}
+function hideTip(){tip.classList.remove('on');pinned=false;}
 function stats(){
   const el=document.getElementById('stats');
   const nc=P.filter(p=>p.c).length, nn=P.length-nc, rate=(nc/P.length*100).toFixed(0);
@@ -305,6 +317,7 @@ seg('sz-u','sz-t',u=>{state.sizeByTowers=!u;draw();});
 seg('v-map','v-tab',isMap=>{
   document.getElementById('mapwrap').classList.toggle('off',!isMap);
   document.getElementById('tableview').classList.toggle('on',!isMap);});
+svg.addEventListener('click',hideTip);   // tap empty map to dismiss
 stats(); buildTable(); draw();
 </script>
 
